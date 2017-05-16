@@ -1,0 +1,10 @@
+[centos]
+centos7
+
+
+[all:vars]
+ansible_host: centos7
+ansible_user: andrew
+ansible_ssh_pass: password
+ansible_become_passwd: password
+ansible_sudo_pass: password

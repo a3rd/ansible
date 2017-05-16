@@ -1,0 +1,38 @@
+---
+- hosts: all
+  
+  tasks:
+
+  - name: "test03 {{ item.name }}" 
+    shell: groups
+    with_items:
+      - { name: "andrew", out: "/tmp" }
+      - { name: "centos7", out: "/tmp" }
+      - { name: "root", out: "/tmp" }
+    become: true
+    become_user: "{{ item.name }}"
+    register: "{{ item.name }}_out"
+
+  - debug: 
+      msg: "{{ item.name }}_out"
+      with_items:
+        - {name: "andrew" }
+
+#    when:
+#     - "{{ item.name }} == andrew"
+    
+
+  - debug:
+      msg: "{{OP_andrew}}"
+
+  - debug:
+      msg: "OP_{{ item.name }}"
+      with_items:
+        - { name: "andrew" }
+        - { name: "centos7" }
+        - { name: "root"  }
+
+   
+
+  
+

@@ -1,0 +1,17 @@
+---
+- hosts: all
+
+  tasks:
+  - name: check that sshd is running
+    shell: whoami
+    become: true
+    register: test_out
+   
+  - debug:
+      msg: '{{test_out.stdout_lines}}'
+
+- include: test01.yml	# test for command
+- include: test02.yml   # tset for shell
+- include: test03.yml
+  
+

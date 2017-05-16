@@ -1,0 +1,36 @@
+---
+- hosts: all
+  vars:
+#    CRQ_FILES: ["test.yml","test01.yml","test02.yml"]
+   CRQ_FILES:
+     - test.yml
+     - test01.yml
+     - test02.yml
+
+  tasks:
+ 
+  - service: name=sshd state=started enabled=yes
+    register: status
+  
+  - debug: msg="{{ status }}"
+
+  - copy:
+      src: "{{ item }}"
+      dest: /tmp
+      owner: andrew
+      group: wheel
+      mode: a+rw
+    with_items:
+      - "{{ CRQ_FILES }}"
+#      - test01.yml
+#      - test02.yml
+
+  - fetch:
+      src: /tmp/{{ item }}
+      dest: /home/imail/{{ item }}
+      flat: yes
+    with_items:
+      - "{{ CRQ_FILES }}"
+    become: true
+    become_user: imail
+     

@@ -1,0 +1,16 @@
+---
+- hosts: all
+  
+  tasks:
+
+  - name: test01 - try command
+    command: whoami
+    become: true
+    register: test01
+   
+  - debug:
+      msg: '{{test01.stdout_lines}}'
+   
+
+  
+

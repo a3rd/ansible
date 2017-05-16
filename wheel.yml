@@ -1,0 +1,17 @@
+---
+- hosts: all
+
+  tasks:
+
+  - name: add users to wheel
+    become: true
+    user:
+      name: "{{ item }}"
+      state: present
+      groups: "wheel"
+    with_items:
+      - andrew
+      - centos7
+      - n100061
+      - imail
+      - d849348
